@@ -2,7 +2,7 @@ import openai
 from flask import request
 
 # Define OpenAI API key 
-openai.api_key = "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"
+openai.api_key = " "
 
 
 from pyresparser import ResumeParser
