@@ -4,8 +4,7 @@ from flask import request
 
 import openai
 
-openai.api_key = "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"
-
+ 
 
 from pyresparser import ResumeParser
 
