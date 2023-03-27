@@ -1,15 +1,24 @@
-import openai
+import fitz 
+import json
 from flask import request
 
-# Define OpenAI API key 
-openai.api_key = " "
+import openai
+
+openai.api_key = "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"
 
 
 from pyresparser import ResumeParser
 
+def parse_pdf(file_name):
+    with fitz.open(file_name) as doc:
+        text = ""
+        for idx,page in enumerate(doc):
+            text+= page.get_text()
+        
+        return(text)
+        
 
 def basic_info(file):
-    file="data/Abhishek-Bisht-DS.pdf"
     data = ResumeParser(file).get_extracted_data()
     print("Name:" + data['name'])
     print("Email:" + data['email'])
@@ -18,7 +27,10 @@ def basic_info(file):
     print("Pages:"+ str(data['no_of_pages']))
 
 
-def summarize(para):
+
+def summarize(file):
+        text= parse_pdf(file)
+
         #prompt = "summarize in 10 points: " + para
         
         prompt = "extract entities like skills, companies, tools, education, city : " + para
@@ -37,10 +49,10 @@ def summarize(para):
     
 
 
+
 if __name__ == "__main__":
 
-    basic_info(None)
-    fp=open("data/resume1.txt")
-    text= fp.read()
-    summarize(text)
+    
+    basic_info(file)
+    summarize(file)
 
